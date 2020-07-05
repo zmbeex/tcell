@@ -15,8 +15,10 @@ func ossUploadBase64(d *dog.Dog) {
 	params := new(ossUploadBase64Params)
 	d.GetParams(params)
 
-	data, err := gkit.Base64ToString(params.Base64)
-	gkit.CheckPanic(err, "base64数据异常")
-	err = toss.UploadFile(params.Md5Name, []byte(data))
+	data := gkit.Base64ToString(params.Base64)
+	if len(data) == 0 {
+		gkit.Panic("base64数据异常")
+	}
+	err := toss.UploadFile(params.Md5Name, []byte(data))
 	gkit.CheckPanic(err, "上传文件失败")
 }

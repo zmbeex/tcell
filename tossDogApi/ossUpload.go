@@ -62,7 +62,7 @@ func ossUpload(d *dog.Dog) {
 
 				// 获取md5值
 				fileBytes := gkit.ReadFile(tempFile)
-				md5Str, err := gkit.GetMd5(string(fileBytes))
+				md5Str := gkit.GetMd5(string(fileBytes))
 				gkit.CheckPanic(err, "md5")
 
 				// 返回结果

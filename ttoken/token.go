@@ -49,8 +49,8 @@ func SetToken(code string, id int64, platform int) (string, error) {
 	}
 
 	// 加密
-	token, err := gkit.GetSHA(string(b))
-	if err != nil {
+	token := gkit.GetSHA(string(b))
+	if token == "" {
 		return "", errors.New("加密失败")
 	}
 	// 存储

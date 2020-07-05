@@ -3,7 +3,6 @@ package tfile
 import (
 	"github.com/zmbeex/gkit"
 	"go.uber.org/zap"
-	"os"
 	"path"
 )
 
@@ -154,44 +153,4 @@ func RenameFileSafe(path0 string, target0 string) error {
 
 	// 重命名
 	return gkit.RenameFile(path1, target)
-}
-
-// @desc 获取指定路径下的所有文件，只搜索当前路径，不进入下一级目录，可匹配后缀过滤（suffix为空则不过滤）
-// @param dir 文件夹路径
-// @param suffix 文件后缀
-func ListDirFileSafe(dir, suffix string) (files []string, err error) {
-	gkit.Debug("ListDirFileSafe", zap.String("dir", dir), zap.String("suffix", suffix))
-	// 路径修正
-	path := gkit.FixPathToAbs(dir)
-
-	return gkit.ListDirFile(path, suffix)
-}
-
-// @desc 获取指定路径下的所有文件夹，只搜索当前路径，不进入下一级目录，可匹配后缀过滤（suffix为空则不过滤）
-// @param dir 文件夹路径
-// @param suffix 文件后缀
-func ListDirDirSafe(dir, suffix string) (files []string, err error) {
-	// 路径修正
-	path := gkit.FixPathToAbs(dir)
-
-	return gkit.ListDirFile(path, suffix)
-}
-
-// @desc 获取指定路径下以及所有子目录下的所有文件，可匹配后缀过滤（suffix为空则不过滤）
-// @param dir 文件夹路径
-// @param suffix 文件后缀
-func WalkDirSafe(dir, suffix string) (files []string, err error) {
-	// 路径修正, 转换为绝对路径
-	path := gkit.FixPathToAbs(dir)
-
-	return gkit.WalkDir(path, suffix)
-}
-
-// @desc 获取指定路径下以及所有子目录下的所有文件，可匹配后缀过滤（suffix为空则不过滤）
-// @param dir 文件夹路径
-func WalkDirFunc(dir string, exce func(file os.FileInfo, p string) bool) error {
-	// 路径修正, 转换为绝对路径
-	path := gkit.FixPathToAbs(dir)
-
-	return gkit.WalkDirFunc(path, exce)
 }
